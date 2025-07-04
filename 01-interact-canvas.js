@@ -6,15 +6,15 @@ document.addEventListener("DOMContentLoaded", function() {
 	const ctx = getContext("#myCanvas"); // ใช้ ID ของ canvas ที่ต้องการเข้าถึง
 
 	// input ตัวอย่าง keyboard, mouse, touch
-	let keys = {};
+	let keys = {}; // keys = Object
 	document.addEventListener("keydown", function(event) {
-		keys[event.key] = true; // บันทึกปุ่มที่กด
+		keys[event.key] = true; // บันทึกปุ่มที่กด property (key : value)
 	});
 	document.addEventListener("keyup", function(event) {
 		keys[event.key] = false; // ลบปุ่มที่ปล่อย
 	});
 
-	let mouse = { x: 0, y: 0, isDown: false };
+	let mouse = { x: 0, y: 0, isDown: false }; // JSON
 	document.addEventListener("mousemove", function(event) {
 		mouse.x = event.offsetX; // ใช้ offsetX เพื่อให้ได้ตำแหน่งสัมพัทธ์กับ canvas
 		mouse.y = event.offsetY; // ใช้ offsetY เพื่อให้ได้ตำแหน่งสัมพัทธ์กับ canvas
@@ -41,7 +41,13 @@ document.addEventListener("DOMContentLoaded", function() {
 		// วาดข้อความแสดงสถานะของปุ่มที่กด
 		ctx.font = "20px Tahoma";
 		ctx.fillStyle = "black";
-		ctx.fillText("Keys: " + Object.keys(keys).filter(key => keys[key]).join(", "), 10, 30);
+		ctx.fillText(
+			"Keys: " + Object.keys(keys) // Object function -> Array
+				.filter((key) => { return keys[key]; }) // Array function -> Array
+				.join(" / "), // Array function -> string
+			10, 
+			30
+		);
 		// Object.keys(keys) จะได้รายชื่อปุ่มทั้งหมดที่ถูกกด
 		// filter จะกรองเฉพาะปุ่มที่มีค่าเป็น true (กดอยู่)
 		// join จะรวมปุ่มที่กดเป็นสตริงเดียวกัน
